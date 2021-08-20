@@ -69,6 +69,17 @@ class Embed {
 
     public function addFields(array $fields) {
         WebHook::$data['embeds'][0]['fields'] = $fields;
+        return $this;
+    }
+
+    public function addField(string $name, string $value, bool $inline = false) {
+        $field = [
+            "name"=>$name, 
+            "value"=>$value, 
+            "inline"=>$inline
+        ];
+        WebHook::$data['embeds'][0]['fields'][] = $field;
+        return $this;
     }
 
 }

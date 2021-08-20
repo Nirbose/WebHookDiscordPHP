@@ -44,6 +44,11 @@ class Webhook {
         return $embed;
     }
 
+    public function deleteHook(int $id) {
+        $this->webhookurl .= "/messages/$id";
+        $this->send();
+    }
+
 
     public function send() {
         $json = json_encode($this::$data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -54,7 +59,7 @@ class Webhook {
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5); // 5 seconds
 
         curl_setopt($curl, CURLOPT_URL, $this->webhookurl);
-        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
